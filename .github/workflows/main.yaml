@@ -72,10 +72,26 @@ jobs:
       run: |
         mvn sonar:sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.qualitygate.wait=true -Dsonar.login=admin -Dsonar.password=admin
 
-  desplegar:
-    needs: controlar_calidad
+  deploy:
     runs-on: ubuntu-latest
-    steps: 
-      - name: despliegue
-        run: echo "despliegue"
+    needs: controlar_calidad
+    if: github.ref=='refs/heads/master'
+    environment:
+      name: 'Production'
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+      
+    steps:
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v4
+        with:
+          name: moviecards-java
+      
+      - name: Deploy to Azure Web App
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: 'moviecard-hilera'
+          slot-name: 'Production'
+          package: '*.jar'
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_965AB18D40424531891EF65F4A4969DB }}
   
