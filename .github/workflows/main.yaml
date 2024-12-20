@@ -22,7 +22,7 @@ jobs:
           path: "${{github.workspace}}/target/*.jar"
 
   test:
-    needs: build
+    needs: compilar
     runs-on: ubuntu-latest
     steps:
       - name: Descargar repositorio
