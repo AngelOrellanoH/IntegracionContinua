@@ -21,10 +21,10 @@ jobs:
           name: movicards-java
           path: "${{github.workspace}}/target/*.jar"
 
-  probar:
-    needs: compilar
+  test:
+    needs: build
     runs-on: ubuntu-latest
-    steps: 
+    steps:
       - name: Descargar repositorio
         uses: actions/checkout@v2
       - name: Instalar JDK 11
@@ -52,7 +52,7 @@ jobs:
         run: mvn clean verify
 
   controlar_calidad:
-    needs: probar
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - name: calidad
