@@ -18,7 +18,7 @@ jobs:
       - name: Guardar paquete generado para el trabajo de despliegue
         uses: actions/upload-artifact@v4
         with:
-          name: movicards-java
+          name: moviecards-java
           path: "${{github.workspace}}/target/*.jar"
 
   test:
