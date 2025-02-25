@@ -74,9 +74,10 @@ jobs:
 
   stage:
     runs-on: ubuntu-latest
-    needs: test
+    needs: compilar
+    if: github.ref=='refs/heads/master'
     environment:
-      name: 'Preproducción'
+      name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
@@ -100,7 +101,7 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    needs: test
+    needs: compilar
     if: github.ref=='refs/heads/master'
     environment:
       name: 'Production'
