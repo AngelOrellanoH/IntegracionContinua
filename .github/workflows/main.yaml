@@ -79,17 +79,14 @@ jobs:
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-
+      
     steps:
-      - name: Checkout código fuente
-        uses: actions/checkout@v4
-
-      - name: Descargar artefacto
+      - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
           name: moviecards-java
-
-      - name: PreDeploy to Azure Web App
+      
+      - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
@@ -97,7 +94,6 @@ jobs:
           slot-name: 'Production'
           package: '*.jar'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_A6B738FE6F6F44879B52B3B2BD6324F4 }}
-
 
   deploy:
     runs-on: ubuntu-latest
