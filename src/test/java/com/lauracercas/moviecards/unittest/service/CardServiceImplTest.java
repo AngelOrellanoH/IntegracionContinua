@@ -4,12 +4,15 @@ import com.lauracercas.moviecards.model.Actor;
 import com.lauracercas.moviecards.model.Card;
 import com.lauracercas.moviecards.model.Movie;
 import com.lauracercas.moviecards.service.actor.ActorService;
+import com.lauracercas.moviecards.service.actor.ActorServiceImpl;
 import com.lauracercas.moviecards.service.card.CardServiceImpl;
+import com.lauracercas.moviecards.service.card.CardService;
 import com.lauracercas.moviecards.service.movie.MovieService;
 import com.lauracercas.moviecards.util.Messages;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
 import java.util.ArrayList;
@@ -30,14 +33,16 @@ class CardServiceImplTest {
     ActorService actorService;
     @Mock
     MovieService movieService;
-    private CardServiceImpl sut;
+  
+    @InjectMocks  
+    private CardService sut = new CardServiceImpl();
+  
     private AutoCloseable closeable;
 
 
     @BeforeEach
     public void setUp() {
         closeable = openMocks(this);
-        sut = new CardServiceImpl();
     }
 
     @AfterEach
