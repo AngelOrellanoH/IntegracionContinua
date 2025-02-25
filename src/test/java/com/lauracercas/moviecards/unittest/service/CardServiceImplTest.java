@@ -37,7 +37,7 @@ class CardServiceImplTest {
     @BeforeEach
     public void setUp() {
         closeable = openMocks(this);
-        sut = new CardServiceImpl(actorService, movieService);
+        sut = new CardServiceImpl();
     }
 
     @AfterEach
