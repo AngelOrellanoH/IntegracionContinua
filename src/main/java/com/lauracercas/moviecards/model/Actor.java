@@ -3,6 +3,8 @@ package com.lauracercas.moviecards.model;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -22,6 +24,9 @@ public class Actor {
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birthDate;
+
+    @Column(name = "dead_date", nullable = true)
+    private Date deadDate;
 
     private String country;
 
@@ -76,6 +81,14 @@ public class Actor {
         this.movies = movies;
     }
 
+    public Date getDeadDate() {
+        return deadDate;
+    }
+    
+    public void setDeadDate(Date deadDate) {
+        this.deadDate = deadDate;
+    }
+    
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
