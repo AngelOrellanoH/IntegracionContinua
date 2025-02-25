@@ -74,7 +74,7 @@ jobs:
 
   stage:
     runs-on: ubuntu-latest
-    needs: controlar_calidad
+    needs: test
     environment:
       name: 'Preproducción'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
@@ -93,14 +93,14 @@ jobs:
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'moviecards-orellano-pre'
-          slot-name: 'Staging'
+          slot-name: 'Production'
           package: '*.jar'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_A6B738FE6F6F44879B52B3B2BD6324F4 }}
 
 
   deploy:
     runs-on: ubuntu-latest
-    needs: stage
+    needs: test
     if: github.ref=='refs/heads/master'
     environment:
       name: 'Production'
