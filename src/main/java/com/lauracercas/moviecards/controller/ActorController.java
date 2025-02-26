@@ -23,6 +23,10 @@ import java.util.List;
 @Controller
 public class ActorController {
 
+
+    private static final String ACTORS_FORM = "actors/form";
+    private static final String TITLE_ATTR = "title";
+
     private final ActorService actorService;
 
     public ActorController(ActorService actorService) {
@@ -38,14 +42,14 @@ public class ActorController {
     @GetMapping("actors/new")
     public String newActor(Model model) {
         model.addAttribute("actor", new Actor());
-        model.addAttribute("title", Messages.NEW_ACTOR_TITLE);
-        return "actors/form";
+        model.addAttribute(TITLE_ATTR, Messages.NEW_ACTOR_TITLE);
+        return ACTORS_FORM;
     }
 
     @PostMapping("saveActor")
     public String saveActor(@ModelAttribute Actor actor, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            return "actors/form";
+            return ACTORS_FORM;
         }
         Actor actorSaved = actorService.save(actor);
         if (actor.getId() != null) {
@@ -55,8 +59,8 @@ public class ActorController {
         }
 
         model.addAttribute("actor", actorSaved);
-        model.addAttribute("title", Messages.EDIT_ACTOR_TITLE);
-        return "actors/form";
+        model.addAttribute(TITLE_ATTR, Messages.EDIT_ACTOR_TITLE);
+        return ACTORS_FORM;
     }
 
     @GetMapping("editActor/{actorId}")
@@ -66,9 +70,9 @@ public class ActorController {
         model.addAttribute("actor", actor);
         model.addAttribute("movies", movies);
 
-        model.addAttribute("title", Messages.EDIT_ACTOR_TITLE);
+        model.addAttribute(TITLE_ATTR, Messages.EDIT_ACTOR_TITLE);
 
-        return "actors/form";
+        return ACTORS_FORM;
     }
 
 
